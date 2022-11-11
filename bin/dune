@@ -1,3 +1,9 @@
 (executable
+ (name OCaml_sokoban)
  (public_name OCaml_sokoban)
- (name main))
+ (libraries bogue))
+
+(install
+ (section share)
+ (files
+  ("images/playerFace.png" as "images/playerFace.png")))

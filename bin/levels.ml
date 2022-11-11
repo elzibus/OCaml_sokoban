@@ -156,3 +156,5 @@ let decompress_level lvl =
     grid2d.(i / width).(i mod width) <- grid1d.(i)
   done ;
   grid2d ;;
+
+(* TODO: return a level definition here. Include the stack of moves *)

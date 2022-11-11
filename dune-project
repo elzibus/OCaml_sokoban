@@ -3,10 +3,10 @@
 (name OCaml_sokoban)
 (version "0.001")
 
-(generate_opam_files true)
+(generate_opam_files false)
 
 (source
- (github elzibus/Ocaml_sokoban))
+ (github elzibus/OCaml_sokoban))
 
 (authors "elzibus")
 
@@ -17,5 +17,6 @@
 (package
  (name OCaml_sokoban)
  (synopsis "Sokoban game")
- (description "Classic sokoban implemented in OCaml")
- (depends ocaml dune))
+ (description "Classic sokoban implemented in OCaml with Bogue")
+ (depends ocaml dune
+   (bogue (>= 20221001))))
