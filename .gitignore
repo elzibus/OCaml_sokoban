@@ -1,3 +1,10 @@
+lib/
+test/
+_build/
+_opam/
+*~
+
+## standard OCaml
 *.annot
 *.cmo
 *.cma
