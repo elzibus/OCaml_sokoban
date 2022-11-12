@@ -1,5 +1,7 @@
 
-(* compressed sokoban levels as a list of arrays of ints *)
+(* Compressed sokoban levels as a list of arrays of ints
+ * Compressed but using ints instead of bytes for now..
+ *)
 
 let levels : int array list = [
     [| 8; 3; 246; 5; 3; 122; 1; 1 |] ;
@@ -86,11 +88,29 @@ let levels : int array list = [
 //|         char man_y
  *)
 
+type move = Up
+          | Down
+          | Right
+          | Left ;;
+
 type tile = Empty
           | Wall
           | Box
           | Placed_box
           | Goal ;;
+
+type t = {
+    width : int ;
+    height : int ;
+    player_sprite : int ;
+    zoom_factor : float ; (* zoom factor (same for horizontal and vertical) *)
+    offset_x : float ; (* screen offset to center the level *)
+    offset_y : float ;
+    player_x : int ;
+    player_y : int ;
+    grid2d : tile array array ;
+    moves : move Stack.t   (* ?? *)
+  } ;;
 
 (*
 # byte_to_booleans 11 ;;
@@ -107,8 +127,8 @@ let decompress_level lvl =
   let length = Array.length level_data in
   let width = level_data.(0) in
   let height = level_data.(1) in
-  (*  let px = level_data.(length-2) in
-  let py = level_data.(length-1) in *)
+  let player_x = level_data.(length-2) in
+  let player_y = level_data.(length-1) in
   let temp = Array.map byte_to_booleans (Array.sub level_data 2 (length-4)) in
   let bits = Array.(concat (to_list temp)) in
   let index = ref 0 in
@@ -155,6 +175,14 @@ let decompress_level lvl =
   for i = 0 to Array.length(grid1d)-1 do
     grid2d.(i / width).(i mod width) <- grid1d.(i)
   done ;
-  grid2d ;;
+  { width = width ;
+    height = height ;
+    player_sprite = 0 ;
+    zoom_factor = 1.0 ;
+    offset_x = 0.0 ;
+    offset_y = 0.0 ;
+    player_x = player_x ;
+    player_y = player_y ;
+    grid2d = grid2d ;
+    moves = Stack.create ()} ;;
 
-(* TODO: return a level definition here. Include the stack of moves *)
