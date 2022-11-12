@@ -1,3 +1,10 @@
+# Sokoban
+
+To execute the program:  
+
+```
+dune exec OCaml_sokoban
+```
 # Credits
 
 OCaml language : https://ocaml.org/
